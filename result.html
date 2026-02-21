@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Media Verification Report</h2>
+
+<p><b>Filename:</b> {{ filename }}</p>
+
+<p><b>SHA-256 Hash:</b></p>
+<p style="word-break: break-all;">{{ file_hash }}</p>
+
+<hr>
+
+<h3>Basic Metadata</h3>
+<ul>
+    <hr>
+<h3>File Type Analysis</h3>
+<p><b>Detected File Type:</b> {{ real_file_type }}</p>
+
+{% if type_mismatch %}
+<p style="color:red;">File extension does not match actual file type. Suspicious.</p>
+{% else %}
+<p>File extension matches actual content type.</p>
+{% endif %}
+
+    <li>File Size: {{ basic_meta.size_kb }} KB</li>
+    <li>Created Time: {{ basic_meta.created_time }}</li>
+    <li>Modified Time: {{ basic_meta.modified_time }}</li>
+</ul>
+
+<hr>
+
+<h3>Risk Assessment</h3>
+<p><b>Risk Level:</b> {{ risk_level }}</p>
+
+{% if reasons %}
+<p><b>Reasons:</b></p>
+<ul>
+    {% for reason in reasons %}
+        <li>{{ reason }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p><b>Recommendation:</b><br>
+This report provides preliminary technical indicators only.  
+Further forensic examination is recommended if required.
+</p>
+
+<br>
+<a href="/">Upload Another File</a>
+
+</body>
+</html>
